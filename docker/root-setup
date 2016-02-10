@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+apt-get install -y python2.7 software-properties-common
+add-apt-repository ppa:nviennot/tmate
+
+apts=(
+  build-essential
+  cpanminus
+  curl
+  exuberant-ctags
+  git
+  htop
+  language-pack-en
+  libdist-zilla-perl
+  libssl-dev
+  libtool
+  mosh
+  perl-doc
+  powertop
+  python-virtualenv
+  python2.7-dev
+  silversearcher-ag
+  tig
+  tmate
+  tmux
+  tree
+  vim
+  weechat
+)
+
+apt-get update
+apt-get install -y ${apts[@]}

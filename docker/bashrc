@@ -1,0 +1,10 @@
+mkdir -p ~/.ssh
+chmod 0600 ~/.ssh
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+[[ -d ~/src/git-hub ]] ||
+  git clone git@github.com:ingydotnet/git-hub ~/src/git-hub
+source ~/src/git-hub/init
+git config --global user.email "ingy@ingy.net"
+git config --global user.name "Ingy döt Net"
+export LANG=en_US.UTF-8

@@ -1,0 +1,8 @@
+pairup-did
+==========
+
+Docker Identity image for PairUp
+
+= Synopsis
+
+  did run pairup
