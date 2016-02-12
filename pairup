@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+cd $HOME
+
+(
+  set -x
+  if [[ ! -d .ssh ]]; then
+    mkdir -p .ssh
+    chmod 0600 .ssh
+  fi
+  ssh-keyscan github.com >> .ssh/known_hosts
+
+  [[ -d src/git-hub ]] ||
+    git clone git@github.com:ingydotnet/git-hub src/git-hub
+
+  cat /docker/bashrc >> .bashrc
+  if [[ -e ./.../conf ]]; then
+    .../... install
+    mkdir -p .sh
+    cp /docker/bashrc .sh/local
+  fi
+) |& tee /pairup.log
+
+tmate

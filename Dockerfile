@@ -1,7 +1,8 @@
 FROM ubuntu:14.04
 
-COPY ./docker /docker
+COPY build /docker/build
 
-RUN /docker/root-setup
+RUN /docker/build
 
-ENTRYPOINT ["/usr/bin/make", "-C", "/docker"]
+COPY bashrc /docker/
+COPY pairup /pairup

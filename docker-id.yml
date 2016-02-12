@@ -1,0 +1,27 @@
+---
+name: pairup
+user: dids
+
+man: doc/pairup.swim
+
+entry:
+- name: main
+  point: /pairup
+  it: true
+  privileged: true
+  readonly: false
+  volume:
+  - [~/.git-hub, /root/.git-hub]
+  - [$SSH_AUTH_SOCK, /ssh-agent]
+  env:
+  - [SSH_AUTH_SOCK, /ssh-agent]
+
+  # This value is a cheat until 'did' gets better:
+  run: -it --privileged
+    --entrypoint /pairup
+    -v $PWD:/did
+    -v $HOME/...:/root/...
+    -v $HOME/.git-hub:/root/.git-hub
+    -v $SSH_AUTH_SOCK:/ssh-agent
+    -e SSH_AUTH_SOCK=/ssh-agent
+    dids/pairup
