@@ -1,4 +1,7 @@
-DID_NAME := dids/pairup
+name := $(shell grep '^name:' docker-id.yml | cut -d' ' -f2)
+user := $(shell grep '^user:' docker-id.yml | cut -d' ' -f2)
+base := $(shell basename $$PWD)
+DID_NAME := $(user)/$(name)
 
 build:
 	did build
@@ -14,7 +17,7 @@ push:
 
 doc: ReadMe.pod
 
-ReadMe.pod: doc/pairup-did.swim
+ReadMe.pod: $(base).swim
 	docker run -i dids/swim < $< > $@
 	# Soon to be:
 	#did run swim --to=pod --complete < $< > $@
