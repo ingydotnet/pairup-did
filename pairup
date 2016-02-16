@@ -2,6 +2,8 @@
 
 cd $HOME
 
+hostname "pairup-$PAIRUP_HOST_USER"
+
 (
   set -x
   if [[ ! -d .ssh ]]; then
@@ -15,7 +17,7 @@ cd $HOME
 
   cat /docker/bashrc >> .bashrc
   if [[ -e ./.../conf ]]; then
-    .../... install
+    .../bin/... install
     mkdir -p .sh
     cp /docker/bashrc .sh/local
   fi

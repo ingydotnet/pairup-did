@@ -5,4 +5,4 @@ COPY build /docker/build
 RUN /docker/build
 
 COPY bashrc /docker/
-COPY pairup /pairup
+COPY pairup pairup-mac /

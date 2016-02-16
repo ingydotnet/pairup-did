@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script sets up ssh forwarding and then runs 'did run pairup'
+# for OSX machines that are using docker-machine for Docker.
+
+docker-machine ssh pairup-machine -f -n -A '(
+  sudo killall tail;
+  sudo ln -fs "$SSH_AUTH_SOCK" /ssh-auth-sock;
+  tail -f /dev/null;
+) &'
+
+cmd="$(did cmd pairup)"
+cmd="${cmd/\$SSH_AUTH_SOCK://ssh-auth-sock:}"
+eval "$cmd"

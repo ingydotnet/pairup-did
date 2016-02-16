@@ -8,6 +8,7 @@ apts=(
   cpanminus
   curl
   exuberant-ctags
+  fontconfig
   git
   htop
   language-pack-en

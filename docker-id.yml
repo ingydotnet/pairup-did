@@ -1,4 +1,11 @@
-# ---
+# For OSX with docker-machine, do this to start pairup:
+#
+# > docker run -i --entrypoint cat dids/pairup /pairup-mac > pairup-mac
+# > bash pairup-mac
+#
+# Note: Don't pipe output to bash. It wont't work.
+#
+---
 name: pairup
 user: dids
 
@@ -16,7 +23,6 @@ entry:
   env:
   - [SSH_AUTH_SOCK, /ssh-agent]
 
-  # This value is a cheat until 'did' gets better:
   run: -it --privileged
     --entrypoint /pairup
     -v $PWD:/did
@@ -24,4 +30,5 @@ entry:
     -v $HOME/.git-hub:/root/.git-hub
     -v $SSH_AUTH_SOCK:/ssh-agent
     -e SSH_AUTH_SOCK=/ssh-agent
+    -e PAIRUP_HOST_USER=$USER
     dids/pairup
