@@ -12,6 +12,108 @@ pairup-did - Docker Identity image for PairUp
 
 =head1 Synopsis
 
+    > did run pairup
+
+On OSX
+
+    > did run pairup=mac > pairup-mac && bash pairup-mac
+
+See Running on OSX below for for info.
+
+=head1 Description
+
+PairUp™ is a system for seamlessly putting 2 programmers into a throwaway pair programming environment that is customized for their project and the has the tools they are used to.
+
+The project was started in 2013 here: L<https://github.com/ingydotnet/pairup.>
+
+It used these base tools:
+
+=over
+
+=item * A cheap, throwaway cloud vm (Rackspace, DigitalOcean, etc)
+
+=item * Ubuntu Linux with multiple user accounts
+
+=item * SSH (taking advantage of GitHub publishing keys)
+
+=item * tmux for shared terminal
+
+=item * weechat for IRC in a tmux split window pane
+
+=back
+
+This project is a rewrite (L<https://github.com/ingydotnet/pairup-did)> and uses:
+
+=over
+
+=item * Docker for throwaway containers from virtually anywhere
+
+=item * did for trivial startup (L<https://github.com/ingydotnet/did)>
+
+=item * Ubuntu base Docker image
+
+=item * tmate for simpler SSH, tmux and termcasting
+
+=back
+
+=head1 Installation and Usage
+
+=over
+
+=item Install the C<did> tool
+
+    git clone git@github.com:ingydotnet/did.git
+    source $PWD/did/.rc   # Add this line to your shell startup file.
+
+=item Upgrade the C<did> tool
+
+As C<did> is fairly new, it will changing a lot. Use this to stay up to date:
+
+    did upgrade
+
+=item Pull the PairUp Docker image
+
+You will probably want to check for updates regularly:
+
+    docker pull dids/pairup
+
+=item Start a new PairUp session
+
     did run pairup
+
+=item Start an IRC window?
+
+If you like to use IRC to talk to remote pairs, you can easily start an IRC client in a tmux pane:
+
+    pairup-irc --nick=me^you --server=freenode.net --chan=pairup
+
+For IRC users in a PairUp session, consider using the me^you combination of 2 nicks into 1. It's a "pair" joined by an "up". Get it?!?!
+
+=item Invite someone to PairUp!
+
+Inside the PairUp session, run:
+
+    pairup-info
+
+Use this info to invite a friend to program with you.
+
+=back
+
+=head1 Running on OSX
+
+Since Docker is slightly more complicated to run Docker, it is also slightly more complicated to run PairUp.
+
+You will need a new version of C<docker-machine>. Version 0.5.6 is known to work, but 0.4.1 is known to fail. Get the latest version here: L<https://www.docker.com/products/docker-toolbox>
+
+Run these commands to start your Docker environment:
+
+    docker-machine start default
+    eval $(docker-machine env default)
+
+Next do all the steps above in Installation and Usage, but to Start a new PairUp session:
+
+    did run pairup=mac > pairup-mac && bash pairup-mac
+
+This will download a small Bash script and use it to start PairUp. It configures SSH forwarding for you before starting the pairup session.
 
 =cut

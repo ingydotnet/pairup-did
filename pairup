@@ -15,12 +15,22 @@ hostname "pairup-$PAIRUP_HOST_USER"
   [[ -d src/git-hub ]] ||
     git clone git@github.com:ingydotnet/git-hub src/git-hub
 
-  cat /docker/bashrc >> .bashrc
+  cat /bashrc >> .bashrc
   if [[ -e ./.../conf ]]; then
     .../bin/... install
     mkdir -p .sh
-    cp /docker/bashrc .sh/local
+    cp /bashrc .sh/local
+  fi
+  if [[ -h .ssh/config ]]; then
+    link="$(readlink .ssh/config)"
+    unlink .ssh/config
+    cp "$link" .ssh/config
+    chmod -R go-rwx ~/.ssh
   fi
 ) |& tee /pairup.log
+
+# docker daemon &> /docker-daemon.log &
+
+touch /NEW
 
 tmate

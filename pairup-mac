@@ -3,12 +3,26 @@
 # This script sets up ssh forwarding and then runs 'did run pairup'
 # for OSX machines that are using docker-machine for Docker.
 
-docker-machine ssh pairup-machine -f -n -A '(
+# Locate the first running docker-machine:
+machine="$(docker-machine ls | grep ' Running ' | cut -d' ' -f1)"
+if [[ -z $machine ]]; then
+  echo "No docker-machine is running. Try: docker-machine start default"
+  exit 1
+fi
+
+# Set env for this docker-machine:
+eval $(docker-machine env $machine)
+
+# Start a persistent SSH connection to forward ssh agent:
+docker-machine ssh $machine -f -n -A '(
   sudo killall tail;
-  sudo ln -fs "$SSH_AUTH_SOCK" /ssh-auth-sock;
+  sudo ln -fs "$SSH_AUTH_SOCK" /pairup-auth-sock;
   tail -f /dev/null;
 ) &'
 
+# Get the docker command that starts PairUp:
 cmd="$(did cmd pairup)"
-cmd="${cmd/\$SSH_AUTH_SOCK://ssh-auth-sock:}"
+# Tweak it for our new SSH socket:
+cmd="${cmd/\$SSH_AUTH_SOCK://pairup-auth-sock:}"
+# Run the docker command and start the PairUp:
 eval "$cmd"

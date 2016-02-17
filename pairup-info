@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+clear
+
+for x in {1..10}; do
+  tmate_info="$(tmate show-messages)"
+  [[ $tmate_info =~ https ]] && break
+  sleep 1
+done
+
+n=$'\n'
+[[ $tmate_info =~ ssh\ session\ read\ only:\ ([^$n]*) ]] &&
+  ssh_ro="${BASH_REMATCH[1]}"
+[[ $tmate_info =~ web\ session\ read\ only:\ ([^$n]*) ]] &&
+  web_ro="${BASH_REMATCH[1]}"
+[[ $tmate_info =~ ssh\ session:\ ([^$n]*) ]] &&
+  ssh_rw="${BASH_REMATCH[1]}"
+[[ $tmate_info =~ web\ session:\ ([^$n]*) ]] &&
+  web_rw="${BASH_REMATCH[1]}"
+
+cat <<...
+
+                  Welcome to PairUp™!
+
+Use the following information to share this session:
+
+  Readonly:
+    ssh: $ssh_ro
+    web: $web_ro
+...
+
+[[ $1 == ALL ]] && cat <<...
+
+  Interactive:
+    ssh: $ssh_rw
+    web: $web_rw
+
+  *** IMPORTANT NOTE:
+    Only share these with trusted users!
+    Clear this screen before sharing readonly resources
+...
+
+cat <<...
+
+Use these PairUp commands for more help:
+
+  pairup-info         Show this help screen (without secret ssh info)
+  pairup-info ALL     Show this help screen (with all info)
+
+---
+...
+
+printf "Press any key to clear the screen and begin."
+read -n 1 >/dev/null
+clear

@@ -1,7 +1,11 @@
+.PHONY: default build run update doc
+
 name := $(shell grep '^name:' docker-id.yml | cut -d' ' -f2)
 user := $(shell grep '^user:' docker-id.yml | cut -d' ' -f2)
-base := $(shell basename $$PWD)
+swim := $(name).swim
 DID_NAME := $(user)/$(name)
+
+default: build
 
 build:
 	did build
@@ -9,15 +13,9 @@ build:
 run: build
 	did run $(DID_NAME)
 
-id:
-	docker run $(DID_NAME)
-
-push:
-	docker push $(DID_NAME)
+update: doc
 
 doc: ReadMe.pod
 
-ReadMe.pod: $(base).swim
-	docker run -i dids/swim < $< > $@
-	# Soon to be:
-	#did run swim --to=pod --complete < $< > $@
+ReadMe.pod: $(swim)
+	did run swim --to=pod --complete < $< > $@
