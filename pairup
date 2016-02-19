@@ -29,7 +29,7 @@ hostname "pairup-$PAIRUP_HOST_USER"
   fi
 ) |& tee /pairup.log
 
-# docker daemon &> /docker-daemon.log &
+docker daemon &> /docker-daemon.log &
 
 touch /NEW
 

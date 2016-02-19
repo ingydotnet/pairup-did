@@ -18,6 +18,7 @@ entry:
 
   run: -it --privileged
     --entrypoint /pairup
+    -v /var/lib/docker:/var/lib/docker
     -v $PWD:/did
     -v $HOME/...:/root/...
     -v $HOME/.git-hub:/root/.git-hub
