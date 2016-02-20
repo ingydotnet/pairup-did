@@ -11,7 +11,7 @@ On OSX:
 
   > did run pairup=mac > pairup-mac && bash pairup-mac
 
-See Running on OSX below for for info.
+See OSX Install below for for info.
 
 = Description
 
@@ -19,24 +19,33 @@ PairUp™ is a system for seamlessly putting 2 programmers into a throwaway pair
 programming environment that is customized for their project and the has the
 tools they are used to.
 
-The project was started in 2013 here: https://github.com/ingydotnet/pairup.
-
-It used these base tools:
-
-* A cheap, throwaway cloud vm (Rackspace, DigitalOcean, etc)
-* Ubuntu Linux with multiple user accounts
-* SSH (taking advantage of GitHub publishing keys)
-* tmux for shared terminal
-* weechat for IRC in a tmux split window pane
-
-This project is a rewrite (https://github.com/ingydotnet/pairup-did) and uses:
-
-* Docker for throwaway containers from virtually anywhere
-* did for trivial startup (https://github.com/ingydotnet/did)
-* Ubuntu base Docker image
-* tmate for simpler SSH, tmux and termcasting
-
 = Installation and Usage
+
+This section describes how to install and use PairUp
+
+== Prerequisites
+
+PairUp is known to work on Linux and Mac OSX hosts.
+
+For Linux:
+
+* A modern docker installation
+  * https://docs.docker.com/engine/installation/linux/
+* Bash (just needs to be installed)
+* did CLI - https://github.com/ingydotnet/did
+
+For OSX:
+
+* docker-machine 0.5.6 or higher.
+  * https://www.docker.com/products/docker-toolbox
+* Bash (just needs to be installed)
+* did CLI - https://github.com/ingydotnet/did
+
+== Linux Install
+
+- Install docker
+
+  https://docs.docker.com/engine/installation/linux/
 
 - Install the `did` tool
 
@@ -79,14 +88,14 @@ This project is a rewrite (https://github.com/ingydotnet/pairup-did) and uses:
 
   Inside the PairUp session, run:
 
-    pairup-info
+    pairup-info ALL
 
   Use this info to invite a friend to program with you.
 
-= Running on OSX
+== OSX Install
 
-Since Docker is slightly more complicated to run Docker, it is also slightly
-more complicated to run PairUp.
+Since Docker is slightly more complicated to run on OSX, PairUp is started
+slightly differently.
 
 You will need a new version of `docker-machine`. Version 0.5.6 is known to
 work, but 0.4.1 is known to fail. Get the latest version here:
@@ -97,10 +106,32 @@ Run these commands to start your Docker environment:
   docker-machine start default
   eval $(docker-machine env default)
 
-Next do all the steps above in Installation and Usage, but to Start a new
-PairUp session:
+Next do all the steps above in Linux Install, but to Start a new PairUp
+session:
 
   did run pairup=mac > pairup-mac && bash pairup-mac
 
 This will download a small Bash script and use it to start PairUp. It
-configures SSH forwarding for you before starting the pairup session.
+configures SSH forwarding for you before starting the pairup session. SSH
+forwarding is required to use PairUp.
+
+= History
+
+The PairUp project was started in 2013 here:
+https://github.com/ingydotnet/pairup.
+
+It used these base tools:
+
+* A cheap, throwaway cloud vm (Rackspace, DigitalOcean, etc)
+* Ubuntu Linux with multiple user accounts
+* SSH (taking advantage of GitHub publishing keys)
+* tmux for shared terminal
+* weechat for IRC in a tmux split window pane
+
+This is a rewrite (https://github.com/ingydotnet/pairup-did) and uses:
+
+* Docker for throwaway containers from virtually anywhere
+* did for trivial startup (https://github.com/ingydotnet/did)
+* Ubuntu base Docker image
+* tmate for simpler SSH, tmux and termcasting
+

@@ -14,6 +14,8 @@ hostname "pairup-$PAIRUP_HOST_USER"
 
   [[ -d src/git-hub ]] ||
     git clone git@github.com:ingydotnet/git-hub src/git-hub
+  [[ -d src/did ]] ||
+    git clone git@github.com:ingydotnet/did src/did
 
   cat /bashrc >> .bashrc
   if [[ -e ./.../conf ]]; then
