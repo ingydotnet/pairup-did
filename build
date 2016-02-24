@@ -24,6 +24,7 @@ apts=(
   aptitude
   build-essential
   cpanminus
+  cpp
   curl
   docker-engine
   exuberant-ctags
@@ -51,4 +52,4 @@ apts=(
 )
 
 apt-get update
-apt-get install -y ${apts[@]}
+apt-get install --yes --force-yes ${apts[@]}
