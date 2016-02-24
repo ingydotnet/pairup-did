@@ -1,6 +1,7 @@
 ---
 name: pairup
 user: dids
+repo: git@github.com:ingydotnet/pairup-did
 
 man: doc/pairup.swim
 
